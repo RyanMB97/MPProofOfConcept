@@ -1,6 +1,5 @@
 package Level;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import Core.Game;
@@ -18,10 +17,10 @@ public class BasicTile extends Tile {
 	void tick() {
 		setWorldXPos(getInitialX() + getGame().getxOffset());
 		setWorldYPos(getInitialY() + getGame().getyOffset());
+		checkVisibility();
 	}
 
 	void render(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(getWorldXPos(), getWorldYPos(), 32, 32);
+		g.drawImage(getGame().getResMan().getSpecificTile(0), getWorldXPos(), getWorldYPos(), getGame());
 	}
 }

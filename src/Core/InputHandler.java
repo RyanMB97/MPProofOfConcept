@@ -65,17 +65,14 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		this.game = game;
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
 
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 
 	}
@@ -128,13 +125,13 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	public void toggle(KeyEvent e, boolean pressed) {
 		// Movement
-		if (e.getKeyCode() == KeyEvent.VK_A)
+		if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
 			left.toggle(pressed);
-		if (e.getKeyCode() == KeyEvent.VK_D)
+		if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
 			right.toggle(pressed);
-		if (e.getKeyCode() == KeyEvent.VK_W)
+		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
 			up.toggle(pressed);
-		if (e.getKeyCode() == KeyEvent.VK_S)
+		if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
 			down.toggle(pressed);
 	}
 

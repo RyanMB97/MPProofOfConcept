@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
 	// Other classes
 	private Player player;
 	private InputHandler inputHandler;
+	private ResourceManager resMan;
 	private World world;
 
 	// Frame related variables
@@ -99,9 +100,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void initClasses() {
-		player = new Player(this);
-		inputHandler = new InputHandler(this);
-		world = new World(this);
+		setPlayer(new Player(this));
+		setInputHandler(new InputHandler(this));
+		setResMan(new ResourceManager());
+		setWorld(new World(this));
 	}
 
 	public void tick() {
@@ -170,5 +172,13 @@ public class Game extends Canvas implements Runnable {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+
+	public ResourceManager getResMan() {
+		return resMan;
+	}
+
+	public void setResMan(ResourceManager resMan) {
+		this.resMan = resMan;
 	}
 }

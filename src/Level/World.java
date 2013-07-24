@@ -35,7 +35,8 @@ public class World {
 
 	public void render(Graphics g) {
 		for (Tile t : tiles) {
-			t.render(g);
+			if (t.isVisible())
+				t.render(g);
 		}
 	}
 

@@ -8,10 +8,19 @@ public abstract class Tile {
 	private Game game;
 	private int initialX, initialY, worldXPos, worldYPos;
 	private int tileID;
+	private boolean isVisible;
 
 	abstract void tick();
 
 	abstract void render(Graphics g);
+
+	protected void checkVisibility() {
+		if (getWorldXPos() >= -32 && getWorldXPos() <= getGame().getWidth() && getWorldYPos() >= -32 && getWorldYPos() <= getGame().getHeight()) {
+			setVisible(true);
+		} else {
+			setVisible(false);
+		}
+	}
 
 	// Getters and Setters
 
@@ -61,6 +70,14 @@ public abstract class Tile {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 
 }

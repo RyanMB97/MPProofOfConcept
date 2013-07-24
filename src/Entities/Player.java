@@ -1,6 +1,5 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import Core.Game;
@@ -34,6 +33,7 @@ public class Player {
 	public void tick() {
 		checkForInput();
 		applyMovement();
+		checkBoundaries();
 		updatePos();
 	}
 
@@ -75,15 +75,28 @@ public class Player {
 		}
 	}
 
+	private void checkBoundaries() {
+		if(getWorldXPos() < 0){
+			getGame().setxOffset(getGame().getxOffset() - 1);
+		}
+		if(getWorldXPos() > getGame().getWorld().getWorldPixelSize() - height){
+			getGame().setxOffset(getGame().getxOffset() + 1);
+		}
+		if(getWorldYPos() < 0){
+			getGame().setyOffset(getGame().getyOffset() - 1);
+		}
+		if(getWorldYPos() > getGame().getWorld().getWorldPixelSize() - width){
+			getGame().setyOffset(getGame().getyOffset() + 1);
+		}
+	}
+
 	private void updatePos() {
 		setWorldXPos(getxPos() - getGame().getxOffset());
 		setWorldYPos(getyPos() - getGame().getyOffset());
-		System.out.println("XPos: " + getWorldXPos() + " YPos: " + getWorldYPos());
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(xPos, yPos, width, height);
+		g.drawImage(getGame().getResMan().getPlayerImage(), getxPos(), getyPos(), getGame());
 	}
 
 	// Getters and Setters

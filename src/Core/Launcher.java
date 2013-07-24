@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import MP.MPClient;
+import MP.MPServer;
 
 public class Launcher {
 	// JFrame related items
@@ -16,9 +20,9 @@ public class Launcher {
 	private JFrame frame;
 
 	// Other Items (Buttons, etc)
-	private String[] buttonNames = { "Play", "Quit" };
+	private String[] buttonNames = { "Play", "Host Server", "Join Server", "Quit" };
 	private JButton[] buttons = new JButton[buttonNames.length];
-	private final int buttonWidth = 100, buttonHeight = 30;
+	private final int buttonWidth = 120, buttonHeight = 30;
 
 	public Launcher() {
 		init();
@@ -39,24 +43,41 @@ public class Launcher {
 	public void addButtons() {
 		for (int i = 0; i < buttonNames.length; i++) {
 			buttons[i] = new JButton(buttonNames[i]);
-			buttons[i].setBounds((WIDTH / 2) - (buttonWidth / 2), i * 45 + buttonHeight, buttonWidth, buttonHeight);
+			buttons[i].setBounds((WIDTH / 2) - (buttonWidth / 2), i * 40 + buttonHeight, buttonWidth, buttonHeight);
 			frame.add(buttons[i]);
 		}
 	}
 
 	public void addButtonActions() {
-		buttons[0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Game().start();
-				frame.dispose();
-			}
-		});
+		buttons[0].addActionListener(new ActionListener() { // Play Button
+					public void actionPerformed(ActionEvent e) {
+						new Game().start();
+						frame.dispose();
+					}
+				});
 
-		buttons[1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
+		buttons[1].addActionListener(new ActionListener() { // Host Server
+					public void actionPerformed(ActionEvent e) {
+						int serverPort = Integer.parseInt(JOptionPane.showInputDialog(null, "What is the port that you wish to host on? (Remember to Portforward if required)"));
+
+						new MPServer(serverPort);
+					}
+				});
+
+		buttons[2].addActionListener(new ActionListener() { // Join Server
+					public void actionPerformed(ActionEvent e) {
+						String serverIP = JOptionPane.showInputDialog(null, "What is the IP of the server host?");
+						int serverPort = Integer.parseInt(JOptionPane.showInputDialog(null, "What is the port of the server?"));
+
+						new MPClient(serverIP, serverPort);
+					}
+				});
+
+		buttons[3].addActionListener(new ActionListener() { // Quit
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
 	}
 
 	public static void main(String[] args) {
